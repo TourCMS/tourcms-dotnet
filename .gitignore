@@ -1,0 +1,10 @@
+UpgradeLog.XML
+
+_UpgradeReport_Files/
+
+ConsoleApplication1/bin/
+ConsoleApplication1/obj/
+app.config
+
+TourCMS/bin/
+TourCMS/obj/
