@@ -310,7 +310,38 @@ namespace TourCMS.Utils
 
         #endregion
 
-        // End wrapper functions
+        #region Bookings
+
+            /// <summary>
+            /// Get a list of all bookings, optionally filter by channel / querystring
+            /// </summary>
+            public XmlDocument SearchBookings()
+            {
+                return SearchBookings("", 0);
+            }
+
+            /// <summary>
+            /// Get a list of all bookings, optionally filter by channel / querystring
+            /// </summary>
+            public XmlDocument SearchBookings(string queryString)
+            {
+                return SearchBookings(queryString, 0);
+            }
+
+            /// <summary>
+            /// Get a list of all bookings, optionally filter by channel / querystring
+            /// </summary>
+            public XmlDocument SearchBookings(string queryString, int channelId)
+            {
+                if (channelId == 0)
+                    return Request("/p/bookings/search.xml?" + queryString);
+                else
+                    return Request("/c/bookings/search.xml?" + queryString, channelId);
+            }
+
+        #endregion
+
+            // End wrapper functions
 
         // Create an encrypted signature for a particular request
         protected string GenerateSignature(string path, string verb, int channelId, DateTime outboundTime)
