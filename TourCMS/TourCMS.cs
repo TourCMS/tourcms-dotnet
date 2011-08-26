@@ -362,25 +362,25 @@ namespace TourCMS.Utils
             /// <summary>
             /// Create an enquiry, either with a new customer record or associated with an existing one
             /// </summary>
-            public XmlDocument CreateEnquiry(XmlDocument enquiry_data, int channelId)
+            public XmlDocument CreateEnquiry(XmlDocument enquiryData, int channelId)
             {
-                return Request("/c/enquiry/new.xml", channelId, "POST", enquiry_data);
+                return Request("/c/enquiry/new.xml", channelId, "POST", enquiryData);
             }
 
             /// <summary>
             /// Create a new customer record, optionally include some enquiry data
             /// </summary>
-            public XmlDocument CreateCustomer(XmlDocument enquiry_data, int channelId)
+            public XmlDocument CreateCustomer(XmlDocument customerData, int channelId)
             {
-                return CreateEnquiry(enquiry_data, channelId);
+                return CreateEnquiry(customerData, channelId);
             }
 
             /// <summary>
             /// Update an existing customer record, e.g. contact details
             /// </summary>
-            public XmlDocument UpdateCustomer(XmlDocument enquiry_data, int channelId)
+            public XmlDocument UpdateCustomer(XmlDocument customerData, int channelId)
             {
-                return Request("/c/customer/update.xml", channelId, "POST", enquiry_data);
+                return Request("/c/customer/update.xml", channelId, "POST", customerData);
             }
 
         #endregion
