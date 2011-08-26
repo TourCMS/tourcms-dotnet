@@ -357,7 +357,33 @@ namespace TourCMS.Utils
 
         #endregion
 
-  
+        #region Customers and Enquiries
+
+            /// <summary>
+            /// Create an enquiry, either with a new customer record or associated with an existing one
+            /// </summary>
+            public XmlDocument CreateEnquiry(XmlDocument enquiry_data, int channelId)
+            {
+                return Request("/c/enquiry/new.xml", channelId, "POST", enquiry_data);
+            }
+
+            /// <summary>
+            /// Create a new customer record, optionally include some enquiry data
+            /// </summary>
+            public XmlDocument CreateCustomer(XmlDocument enquiry_data, int channelId)
+            {
+                return CreateEnquiry(enquiry_data, channelId);
+            }
+
+            /// <summary>
+            /// Update an existing customer record, e.g. contact details
+            /// </summary>
+            public XmlDocument UpdateCustomer(XmlDocument enquiry_data, int channelId)
+            {
+                return Request("/c/customer/update.xml", channelId, "POST", enquiry_data);
+            }
+
+        #endregion
             // End wrapper functions
 
         // Create an encrypted signature for a particular request
