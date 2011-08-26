@@ -29,19 +29,26 @@ namespace TourCMS.Utils
         /// </summary>
         public XmlDocument Request(string path)
         {
-            return Request(path, 0, "GET");
+            return Request(path, 0, "GET", null);
         }
         /// <summary>
         /// Make a generic request to the API, most documented calls will have wrappers for this
         /// </summary>
         public XmlDocument Request(string path, int channelId)
         {
-            return Request(path, channelId, "GET");
+            return Request(path, channelId, "GET", null);
         }
         /// <summary>
         /// Make a generic request to the API, most documented calls will have wrappers for this
         /// </summary>
         public XmlDocument Request(string path, int channelId, string verb)
+        {
+            return Request(path, channelId, "GET", null);
+        }
+        /// <summary>
+        /// Make a generic request to the API, most documented calls will have wrappers for this
+        /// </summary>
+        public XmlDocument Request(string path, int channelId, string verb, XmlDocument postData)
         {
             string url = _baseUrl + path;
             DateTime outboundTime = DateTime.Now.ToUniversalTime();
@@ -54,6 +61,15 @@ namespace TourCMS.Utils
             myRequest.ContentType = "text/xml;charset=\"utf-8\"";
             myRequest.Headers.Add("Authorization", "TourCMS " + channelId + ":" + _marketplaceId + ":" + signature);
             myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
+
+            if(postData != null)
+            {
+                // Wrap the request stream with a text-based writer
+                StreamWriter writer = new StreamWriter(myRequest.GetRequestStream());
+                // Write the XML text into the stream
+                writer.WriteLine(postData.OuterXml);
+                writer.Close();
+            }
 
             // Call the API
             try
@@ -341,6 +357,7 @@ namespace TourCMS.Utils
 
         #endregion
 
+  
             // End wrapper functions
 
         // Create an encrypted signature for a particular request
