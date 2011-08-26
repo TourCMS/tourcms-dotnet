@@ -112,6 +112,25 @@ namespace TourCMS.Utils
 	        public XmlDocument ShowChannel(int channel) {
 		        return Request("/c/channel/show.xml", channel);
 	        }
+
+            /// <summary>
+            /// Get the statistics on the top 50 performing Channels (Suppliers)
+            /// </summary>
+            public XmlDocument ChannelPerformance()
+            {
+                return ChannelPerformance(0);
+            }
+
+            /// <summary>
+            /// Show details on a specific Channel (Supplier)
+            /// </summary>
+            public XmlDocument ChannelPerformance(int channel) {
+                if(channel==0)
+                    return Request("/p/channels/performance.xml");
+                else
+                    return Request("/c/channel/performance.xml", channel);
+            }
+
         #endregion
 
         #region Tours - General Use
