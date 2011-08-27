@@ -454,6 +454,21 @@ namespace TourCMS.Utils
             }
 
         #endregion
+
+        #region Internal Supplier Methods
+
+            // Show Supplier
+
+            /// <summary>
+            /// Get details on an internal Supplier ID (For Operator use only, not for Marketplace Partner use)
+            /// </summary>
+            public XmlDocument ShowSupplier(int supplierId, int channelId)
+            {
+                return Request("/c/supplier/show.xml?supplier_id=" + supplierId, channelId);
+            }
+            
+        #endregion
+
         // End wrapper functions
 
         /// <summary>
