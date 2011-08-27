@@ -328,6 +328,8 @@ namespace TourCMS.Utils
 
         #region Bookings
 
+            // Search bookings
+
             /// <summary>
             /// Get a list of all bookings, optionally filter by channel / querystring
             /// </summary>
@@ -359,6 +361,8 @@ namespace TourCMS.Utils
 
         #region Customers and Enquiries
 
+            // Create Customer/Enquiry
+
             /// <summary>
             /// Create an enquiry, either with a new customer record or associated with an existing one
             /// </summary>
@@ -375,6 +379,8 @@ namespace TourCMS.Utils
                 return CreateEnquiry(customerData, channelId);
             }
 
+            // Update Customer
+
             /// <summary>
             /// Update an existing customer record, e.g. contact details
             /// </summary>
@@ -383,10 +389,55 @@ namespace TourCMS.Utils
                 return Request("/c/customer/update.xml", channelId, "POST", customerData);
             }
 
-        #endregion
-            // End wrapper functions
+            // Search Enquiries
 
-        // Create an encrypted signature for a particular request
+            /// <summary>
+            /// Get a list of enquiries, filter by date, channel etc
+            /// </summary>
+            public XmlDocument SearchEnquiries()
+            {
+                return SearchEnquiries("", 0);
+            }
+
+            /// <summary>
+            /// Get a list of enquiries, filter by date, channel etc
+            /// </summary>
+            public XmlDocument SearchEnquiries(String queryString)
+            {
+                return SearchEnquiries(queryString, 0);
+            }
+
+            /// <summary>
+            /// Get a list of enquiries, filter by date, channel etc
+            /// </summary>
+            public XmlDocument SearchEnquiries(String queryString, int channelId)
+            {
+                if(channelId==0)
+                {
+                    return Request("/p/enquiries/search.xml?" + queryString, channelId);
+                }
+                else
+                {
+                    return Request("/c/enquiries/search.xml?" + queryString, channelId);
+                }
+            }
+
+            // Show Enquiry
+            /// <summary>
+            /// Get information on a particular enquiry, by passing it's ID
+            /// </summary>
+            public XmlDocument ShowEnquiry(int enquiryId, int channelId)
+            {
+                return Request("/c/enquiry/show.xml?enquiry_id=" + enquiryId, channelId);
+            }
+
+
+        #endregion
+        // End wrapper functions
+
+        /// <summary>
+        /// Create an encrypted signature for a particular request, generally you won't neeed to call this directly
+        /// </summary>
         protected string GenerateSignature(string path, string verb, int channelId, DateTime outboundTime)
         {
             string stringToSign = "";
@@ -406,12 +457,18 @@ namespace TourCMS.Utils
             return signature;
         }
 
-        // Functions for converting between PHP dates
+        /// <summary>
+        /// Convert a DateTime object (in UTC) to a Unix Timestapm, generally you won't neeed to call this directly
+        /// </summary>
         protected int DateTimeToStamp(DateTime value)
         {
             TimeSpan span = (value - new DateTime(1970, 1, 1, 0, 0, 0, 0));
             return (int)span.TotalSeconds;
         }
+
+        /// <summary>
+        /// Convert a Unix Timestamp to a UTC DateTime object, generally you won't need to call this directly
+        /// </summary>
         protected DateTime StampToDateTime(int value)
         {
             System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
