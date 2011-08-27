@@ -443,6 +443,15 @@ namespace TourCMS.Utils
             }
 
             
+            // Check Customer Login
+
+            /// <summary>
+            /// Validate a Customer Username and Password, retrieve their Name and User ID
+            /// </summary>
+            public XmlDocument CheckCustomerLogin(string username, string password, int channelId)
+            {
+                return Request("/c/customers/login_search.xml?customer_username=" + username + "&customer_password=" + password, channelId);
+            }
 
         #endregion
         // End wrapper functions
