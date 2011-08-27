@@ -423,14 +423,26 @@ namespace TourCMS.Utils
             }
 
             // Show Enquiry
+
             /// <summary>
-            /// Get information on a particular enquiry, by passing it's ID
+            /// Get information on a particular enquiry, by passing it's ID and Channel
             /// </summary>
             public XmlDocument ShowEnquiry(int enquiryId, int channelId)
             {
                 return Request("/c/enquiry/show.xml?enquiry_id=" + enquiryId, channelId);
             }
 
+            // Show Customer
+
+            /// <summary>
+            /// Get information on a particular Customer, by passing their ID and Channel
+            /// </summary>
+            public XmlDocument ShowCustomer(int customerId, int channelId)
+            {
+                return Request("/c/customer/show.xml?customer_id=" + customerId, channelId);
+            }
+
+            
 
         #endregion
         // End wrapper functions
