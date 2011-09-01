@@ -398,6 +398,16 @@ namespace TourCMS.Utils
                 return Request("/c/booking/update.xml", channelId, "POST", bookingData);
             }
 
+            // Record a payment / refund
+
+            /// <summary>
+            /// Log details of a payment/refund on a booking sales ledger
+            /// </summary>
+            public XmlDocument CreatePayment(XmlDocument paymentData, int channelId)
+            {
+                return Request("/c/booking/payment/new.xml", channelId, "POST", paymentData);
+            }
+
         #endregion
 
         #region Customers and Enquiries
