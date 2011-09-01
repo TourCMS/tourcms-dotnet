@@ -357,6 +357,16 @@ namespace TourCMS.Utils
                     return Request("/c/bookings/search.xml?" + queryString, channelId);
             }
 
+            // Show booking
+
+            /// <summary>
+            /// Get details on a particular booking
+            /// </summary>
+            public XmlDocument ShowBooking(int bookingId, int channelId)
+            {
+                return Request("/c/booking/show.xml?booking_id=" + bookingId, channelId);
+            }
+
         #endregion
 
         #region Customers and Enquiries
