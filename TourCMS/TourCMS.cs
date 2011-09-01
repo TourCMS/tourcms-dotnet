@@ -10,13 +10,33 @@ using System.Linq;
 
 namespace TourCMS.Utils
 {
+    /// <summary>
+    /// Wrapper class for the XML REST based TourCMS Marketplace API
+    /// </summary>
     public class marketplaceWrapper
     {
+        // Properties
+
+        /// <summary>
+        /// API base URL
+        /// </summary>
         protected string _baseUrl = "https://api.tourcms.com";
+
+        /// <summary>
+        /// Marketplace ID, set via the constructor
+        /// </summary>
         protected int _marketplaceId = 0;
+
+        /// <summary>
+        /// API Private Key, set via the constructor
+        /// </summary>
         protected string _privateKey = "";
 
         // Constructor
+
+        /// <summary>
+        /// Create a new instance of the TourCMS Marketplace wrapper, pass Marketplace ID and Key
+        /// </summary>
         public marketplaceWrapper(int marketplaceId, string privateKey)
         {
             _marketplaceId = marketplaceId;
@@ -24,6 +44,7 @@ namespace TourCMS.Utils
         }
 
         // API request
+
         /// <summary>
         /// Make a generic request to the API, most documented calls will have wrappers for this
         /// </summary>
@@ -365,6 +386,16 @@ namespace TourCMS.Utils
             public XmlDocument ShowBooking(int bookingId, int channelId)
             {
                 return Request("/c/booking/show.xml?booking_id=" + bookingId, channelId);
+            }
+
+            // Update booking
+
+            /// <summary>
+            /// Update some of the details on a booking
+            /// </summary>
+            public XmlDocument UpdateBooking(XmlDocument bookingData, int channelId)
+            {
+                return Request("/c/booking/update.xml", channelId, "POST", bookingData);
             }
 
         #endregion
