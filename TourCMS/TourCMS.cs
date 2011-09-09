@@ -325,6 +325,16 @@ namespace TourCMS.Utils
                     return Request("/c/tours/images/list.xml", channelId);
             }
 
+            // Show Tour Dates and Deals
+
+            /// <summary>
+            /// Get a list of dates and deals/special offers for a particular Tour
+            /// </summary>
+            public XmlDocument ShowTourDatesAndDeals(int tourId, int channelId)
+            {
+                return Request("/c/tour/datesprices/datesndeals/search.xml?id=" + tourId, channelId);
+            }
+
             // Show Tour Departures
 
             /// <summary>
