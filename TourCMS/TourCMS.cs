@@ -325,6 +325,16 @@ namespace TourCMS.Utils
                     return Request("/c/tours/images/list.xml", channelId);
             }
 
+            // Check Tour/Hotel availability
+
+            /// <summary>
+            /// Check Tour/Hotel availability for a specific number of people on specific rates on a specific date, generally used when making a booking
+            /// </summary>
+            public XmlDocument CheckTourAvailability(string queryString, int tourId, int channelId)
+            {
+                return Request("/c/tour/datesprices/checkavail.xml?id=" + tourId + "&" + queryString, channelId);
+            }
+
             // Show Tour Dates and Deals
 
             /// <summary>
@@ -357,7 +367,41 @@ namespace TourCMS.Utils
 
         #endregion
 
-        #region Bookings
+        #region Bookings - Creation
+
+            // Get booking redirect URL
+
+            /// <summary>
+            /// Get a redirect URL from TourCMS, send the customer via it to retrieve a booking key, Tour Op use only
+            /// </summary>
+            public XmlDocument GetBookingRedirectUrl(XmlDocument urlData, int channelId)
+            {
+                return Request("/c/booking/new/get_redirect_url.xml", channelId, "POST", urlData);
+            }
+
+            // Start new booking
+
+            /// <summary>
+            /// Create a temporary booking
+            /// </summary>
+            public XmlDocument StartNewBooking(XmlDocument bookingData, int channelId)
+            {
+                return Request("/c/booking/new/start.xml", channelId, "POST", bookingData);
+            }
+
+            // Commit new booking
+
+            /// <summary>
+            /// Convert a temporary booking to a confirmed booking
+            /// </summary>
+            public XmlDocument CommitNewBooking(XmlDocument bookingData, int channelId)
+            {
+                return Request("/c/booking/new/commit.xml", channelId, "POST", bookingData);
+            }
+            
+        #endregion
+
+        #region Bookings - Retrieval
 
             // Search bookings
 
@@ -397,6 +441,10 @@ namespace TourCMS.Utils
             {
                 return Request("/c/booking/show.xml?booking_id=" + bookingId, channelId);
             }
+
+        #endregion
+
+        #region Bookings - Updating
 
             // Update booking
 
