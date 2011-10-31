@@ -279,6 +279,48 @@ namespace TourCMS.Utils
             public XmlDocument ShowTour(int tourId, int ChannelId) {
 		        return Request("/c/tour/show.xml?id=" + tourId, ChannelId);		
 	        }
+
+            // Update Tour
+
+            /// <summary>
+            /// Update a Tour/Hotel
+            /// </summary>
+            public XmlDocument UpdateTour(XmlDocument tourData, int channelId)
+            {
+                return Request("/c/tour/update.xml", channelId, "POST", tourData);
+            }
+
+            // Update Tour Product URL
+
+            /// <summary>
+            /// Update the "Product URL" on a Tour/Hotel
+            /// </summary>
+            public XmlDocument UpdateTourUrl(int tourId, int channelId, string tourUrl)
+            {
+                // Build XML Document to hold the new Url
+                XmlDocument tourData = new XmlDocument();
+
+                // Create the XML Declaration, append it to XML document
+                XmlDeclaration dec = tourData.CreateXmlDeclaration("1.0", null, null);
+                tourData.AppendChild(dec);
+
+                // Create the root element, append it to the XML document
+                XmlElement root = tourData.CreateElement("tour");
+                tourData.AppendChild(root);
+
+                // Set the Tour ID so TourCMS knows which Tour/Hotel to update
+                XmlElement tourIdXml = tourData.CreateElement("tour_id");
+                tourIdXml.InnerText = tourId.ToString();
+                root.AppendChild(tourIdXml);
+
+                // Set the new URL
+                XmlElement tourUrlXml = tourData.CreateElement("tour_url");
+                tourUrlXml.InnerText = tourUrl;
+                root.AppendChild(tourUrlXml);
+
+                // Call the regular API wrapper for updating the Tour/Hotel
+                return UpdateTour(tourData, channelId);
+            }
 	
         #endregion
 
