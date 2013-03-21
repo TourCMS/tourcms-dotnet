@@ -392,7 +392,7 @@ namespace TourCMS.Utils
             /// </summary>
             public XmlDocument ListTourImages()
             {
-                return ListTourImages(0);
+                return ListTourImages("", 0);
             }
 
             /// <summary>
@@ -400,11 +400,28 @@ namespace TourCMS.Utils
             /// </summary>
             public XmlDocument ListTourImages(int channelId)
             {
-                if (channelId == 0)
-                    return Request("/p/tours/images/list.xml");
-                else
-                    return Request("/c/tours/images/list.xml", channelId);
+                return ListTourImages("", channelId);
             }
+
+            /// <summary>
+            /// Get a list of Image URLs for a specific Channel (Company), use this if you want to bulk-mirror product images on your own hosting
+            /// </summary>
+            public XmlDocument ListTourImages(string queryString)
+            {
+                return ListTourImages(queryString, 0);
+            }
+
+            /// <summary>
+            /// Get a list of Image URLs for a specific Channel (Company), use this if you want to bulk-mirror product images on your own hosting
+            /// </summary>
+            public XmlDocument ListTourImages(string queryString, int channelId)
+            {
+                if (channelId == 0)
+                    return Request("/p/tours/images/list.xml?" + queryString);
+                else
+                    return Request("/c/tours/images/list.xml?" + queryString, channelId);
+            }
+
 
             // Check Tour/Hotel availability
 
