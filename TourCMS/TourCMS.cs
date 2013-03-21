@@ -168,6 +168,14 @@ namespace TourCMS.Utils
                     return Request("/c/channel/performance.xml", channel);
             }
 
+            /// <summary>
+            /// Check a promo code is valid for a Channel and view some info
+            /// </summary>
+            public XmlDocument ShowPromo(string promo, int channel)
+            {
+                return Request("'/c/promo/show.xml?promo_code=" + promo, channel);
+            }
+
         #endregion
 
         #region Tours - General Use
