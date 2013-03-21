@@ -635,6 +635,14 @@ namespace TourCMS.Utils
                 return Request("/c/booking/payment/new.xml", channelId, "POST", paymentData);
             }
 
+            /// <summary>
+            /// Log details of a payment/refund on a booking sales ledger
+            /// </summary>
+            public XmlDocument LogFailedPayment(XmlDocument paymentData, int channelId)
+            {
+                return Request("/c/booking/payment/fail.xml", channelId, "POST", paymentData);
+            }
+
         #endregion
 
         #region Customers and Enquiries
