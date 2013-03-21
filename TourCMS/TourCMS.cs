@@ -422,6 +422,25 @@ namespace TourCMS.Utils
                     return Request("/c/tours/images/list.xml?" + queryString, channelId);
             }
 
+            /// <summary>
+            /// Retrieve a list of connected tour locations
+            /// </summary>
+            public XmlDocument ListTourLocations()
+            {
+                return ListTourLocations(0);
+            }
+
+            /// <summary>
+            /// Retrieve a list of connected tour locations for a specific Channel (Company)
+            /// </summary>
+            public XmlDocument ListTourLocations(int channelId)
+            {
+                if (channelId == 0)
+                    return Request("/p/tours/locations.xml");
+                else
+                    return Request("/c/tours/locations.xml", channelId);
+            }
+
 
             // Check Tour/Hotel availability
 
