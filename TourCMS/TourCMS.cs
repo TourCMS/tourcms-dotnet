@@ -277,8 +277,31 @@ namespace TourCMS.Utils
             /// Show all of the details on a specific Tour, all descriptions and other content etc
             /// </summary>
             public XmlDocument ShowTour(int tourId, int ChannelId) {
-		        return Request("/c/tour/show.xml?id=" + tourId, ChannelId);		
+                return ShowTour(tourId, ChannelId, "");
 	        }
+
+            /// <summary>
+            /// Show all of the details on a specific Tour, all descriptions and other content etc
+            /// </summary>
+            public XmlDocument ShowTour(int tourId, int ChannelId, bool showOptions)
+            {
+                if (showOptions)
+                {
+                    return ShowTour(tourId, ChannelId, "show_options=1");
+                }
+                else
+                {
+                    return ShowTour(tourId, ChannelId);
+                }
+            }
+
+            /// <summary>
+            /// Show all of the details on a specific Tour, all descriptions and other content etc
+            /// </summary>
+            public XmlDocument ShowTour(int tourId, int ChannelId, string queryString)
+            {
+                return Request("/c/tour/show.xml?id=" + tourId + "&" + queryString, ChannelId);
+            }
 
             // Update Tour
 
@@ -332,7 +355,7 @@ namespace TourCMS.Utils
             /// </summary>
             public XmlDocument ListTours()
             {
-                return ListTours(0);
+                return ListTours(0, "");
             }
 
             /// <summary>
@@ -340,10 +363,26 @@ namespace TourCMS.Utils
             /// </summary>
             public XmlDocument ListTours(int channelId)
             {
+                return ListTours(channelId, "");
+            }
+
+            /// <summary>
+            /// Get a list of Tours with only very basic information. Probably most useful when bulk importing. For a more detailed list use <c>SearchTours</c>
+            /// </summary>
+            public XmlDocument ListTours(string queryString)
+            {
+                return ListTours(0, queryString);
+            }
+
+            /// <summary>
+            /// Get a list of Tours with only very basic information. Probably most useful when bulk importing. For a more detailed list use <c>SearchTours</c>
+            /// </summary>
+            public XmlDocument ListTours(int channelId, string queryString)
+            {
                 if (channelId == 0)
-                    return Request("/p/tours/list.xml");
+                    return Request("/p/tours/list.xml?" + queryString);
                 else
-                    return Request("/c/tours/list.xml", channelId);
+                    return Request("/c/tours/list.xml?" + queryString, channelId);
             }
 
             // List Tour Images
