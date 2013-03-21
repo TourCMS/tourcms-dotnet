@@ -347,6 +347,50 @@ namespace TourCMS.Utils
 	
         #endregion
 
+        #region Tours - Raw departure management
+
+            // Search Raw Departures
+
+            /// <summary>
+            /// Get a list of "Raw" Departures for a particular Tour
+            /// </summary>
+            public XmlDocument SearchRawDepartures(int tourId, int channelId)
+            {
+                return Request("/c/tour/datesprices/dep/manage/search.xml?id=" + tourId, channelId);
+            }
+
+            // Create Departure
+
+            /// <summary>
+            /// Create a new departure
+            /// </summary>
+            public XmlDocument CreateDeparture(XmlDocument departureData, int channelId)
+            {
+                return Request("/c/tour/datesprices/dep/manage/new.xml", channelId, "POST", departureData);
+            }
+
+            // Update Departure
+
+            /// <summary>
+            /// Update an existing departure
+            /// </summary>
+            public XmlDocument UpdateDeparture(XmlDocument departureData, int channelId)
+            {
+                return Request("/c/tour/datesprices/dep/manage/update.xml", channelId, "POST", departureData);
+            }
+
+            // Delete Departure
+
+            /// <summary>
+            /// Update an existing departure
+            /// </summary>
+            public XmlDocument DeleteDeparture(int departure, int tourId, int channelId)
+            {
+                return Request("/c/tour/datesprices/dep/manage/delete.xml?id=" + tourId + "departure_id=" + departure, channelId);
+            }
+        
+        #endregion
+
         #region Tours - Bulk exporting Use
             // List Tours
 
