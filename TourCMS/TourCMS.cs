@@ -479,13 +479,29 @@ namespace TourCMS.Utils
             /// </summary>
             public XmlDocument ListTourLocations()
             {
-                return ListTourLocations(0);
+                return ListTourLocations("", 0);
             }
 
             /// <summary>
             /// Retrieve a list of connected tour locations for a specific Channel (Company)
             /// </summary>
             public XmlDocument ListTourLocations(int channelId)
+            {
+                return ListTourImages("", channelId);
+            }
+
+            /// <summary>
+            /// Retrieve a list of connected tour locations on any connected Channel, with a queryString
+            /// </summary>
+            public XmlDocument ListTourLocations(string queryString)
+            {
+                return ListTourLocations(queryString, 0);
+            }
+
+            /// <summary>
+            /// Retrieve a list of connected tour locations for a specific Channel (Company)
+            /// </summary>
+            public XmlDocument ListTourLocations(string queryString, int channelId)
             {
                 if (channelId == 0)
                     return Request("/p/tours/locations.xml");
