@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TourCMS Marketplace Wrapper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TourCMS API Wrapper")]
+[assembly: AssemblyDescription("Simple wrapper for the TourCMS API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TourCMS")]
 [assembly: AssemblyProduct("TourCMS Marketplace Wrapper")]
-[assembly: AssemblyCopyright("Copyright © TourCMS 2010 - 2013")]
+[assembly: AssemblyCopyright("Copyright © TourCMS 2010 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
