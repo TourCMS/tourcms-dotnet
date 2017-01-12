@@ -674,6 +674,18 @@ namespace TourCMS.Utils
 
         #endregion
 
+        #region Bookings - Cancel
+
+        /// <summary>
+        /// Cancel a booking
+        /// </summary>
+        public XmlDocument CancelBooking(XmlDocument bookingData, int channelId)
+        {
+            return Request("/c/booking/cancel.xml", channelId, "POST", bookingData);
+        }
+
+        #endregion
+
         #region Customers and Enquiries
 
         // Create Customer/Enquiry
