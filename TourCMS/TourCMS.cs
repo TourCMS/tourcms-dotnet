@@ -64,7 +64,7 @@ namespace TourCMS.Utils
         /// </summary>
         public XmlDocument Request(string path, int channelId, string verb)
         {
-            return Request(path, channelId, "GET", null);
+            return Request(path, channelId, verb, null);
         }
         /// <summary>
         /// Make a generic request to the API, most documented calls will have wrappers for this
@@ -550,9 +550,9 @@ namespace TourCMS.Utils
         /// Get a list of all future Departures for a specific Tour/Hotel, useful if bulk importing availability information
         /// </summary>
         public XmlDocument ShowTourDepartures(int tourId, int channelId, string queryString)
-	        {
-		        return Request("/c/tour/datesprices/dep/show.xml?id=" + tourId + "&" + queryString, channelId);
-	        }
+        {
+            return Request("/c/tour/datesprices/dep/show.xml?id=" + tourId + "&" + queryString, channelId);
+        }
 
         // Show Tour Freesale
 
@@ -671,6 +671,18 @@ namespace TourCMS.Utils
         public XmlDocument LogFailedPayment(XmlDocument paymentData, int channelId)
         {
             return Request("/c/booking/payment/fail.xml", channelId, "POST", paymentData);
+        }
+
+        #endregion
+
+        #region Bookings - Cancel
+
+        /// <summary>
+        /// Cancel a booking
+        /// </summary>
+        public XmlDocument CancelBooking(XmlDocument bookingData, int channelId)
+        {
+            return Request("/c/booking/cancel.xml", channelId, "POST", bookingData);
         }
 
         #endregion
