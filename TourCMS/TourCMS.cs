@@ -399,7 +399,7 @@ namespace TourCMS.Utils
         /// </summary>
         public XmlDocument DeleteDeparture(int departure, int tourId, int channelId)
         {
-            return Request("/c/tour/datesprices/dep/manage/delete.xml?id=" + tourId + "departure_id=" + departure, channelId);
+            return Request("/c/tour/datesprices/dep/manage/delete.xml?id=" + tourId + "&departure_id=" + departure, channelId, "POST");
         }
 
         #endregion
