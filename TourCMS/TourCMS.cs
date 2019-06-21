@@ -42,6 +42,23 @@ namespace TourCMS.Utils
             _privateKey = privateKey;
         }
 
+        /// <summary>
+        /// Return base url
+        /// </summary>
+        public string getBaseUrl()
+        {
+            return this._baseUrl;
+        }
+
+        /// <summary>
+        /// Allow to modify the _baseUrl param
+        /// </summary>
+        /// <param name="new_url"></param>
+        public void setBaseUrl(string new_url)
+        {
+            this._baseUrl = new_url;
+        }
+
         // API request
 
         /// <summary>
