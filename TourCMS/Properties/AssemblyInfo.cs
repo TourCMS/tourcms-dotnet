@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TourCMS")]
 [assembly: AssemblyProduct("TourCMS API Wrapper")]
-[assembly: AssemblyCopyright("Copyright © Palisis 2017")]
+[assembly: AssemblyCopyright("Copyright © Palisis AG 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
