@@ -12,7 +12,6 @@ namespace TourCMS.Utils
     /// Wrapper class for the XML REST based TourCMS Marketplace API
     /// </summary>
     public class marketplaceWrapper
-
     {
         // Properties
 
@@ -30,6 +29,11 @@ namespace TourCMS.Utils
         /// API Private Key, set via the constructor
         /// </summary>
         protected string _privateKey = "";
+        
+        /// <summary>
+        /// Requests user agent
+        /// </summary>
+        protected string _userAgent = "Tourcms .NET Wrapper v1.0";
 
         // Constructor
 
@@ -57,6 +61,23 @@ namespace TourCMS.Utils
         public void setBaseUrl(string new_url)
         {
             this._baseUrl = new_url;
+        }
+
+        /// <summary>
+        /// Return user agent
+        /// </summary>
+        public string getUserAgent()
+        {
+            return this._userAgent;
+        }
+
+        /// <summary>
+        /// Allow to modify the _userAgent param. This would be the request user agent.
+        /// </summary>
+        /// <param name="user_agent"></param>
+        public void setUserAgent(string user_agent)
+        {
+            this._userAgent = user_agent;
         }
 
         // API request
@@ -87,7 +108,7 @@ namespace TourCMS.Utils
         /// </summary>
         public XmlDocument Request(string path, int channelId, string verb, XmlDocument postData)
         {
-            string url = _baseUrl + path;
+            string url = _baseUrl + path;                
             DateTime outboundTime = DateTime.Now.ToUniversalTime();
             string signature = GenerateSignature(path, verb, channelId, outboundTime);
             XmlDocument doc = new XmlDocument();
@@ -98,6 +119,10 @@ namespace TourCMS.Utils
             myRequest.ContentType = "text/xml;charset=\"utf-8\"";
             myRequest.Headers.Add("Authorization", "TourCMS " + channelId + ":" + _marketplaceId + ":" + signature);
             myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
+            if (!string.IsNullOrEmpty(this.getUserAgent()))
+            {
+                myRequest.UserAgent = this.getUserAgent();
+            }
 
             if (postData != null)
             {
@@ -117,7 +142,7 @@ namespace TourCMS.Utils
                 doc.LoadXml(responseText);
             }
             catch (WebException e)
-            {
+            {                
                 StreamReader responseStream = new StreamReader(e.Response.GetResponseStream(), true);
                 string responseText = responseStream.ReadToEnd();
                 doc.LoadXml(responseText);
