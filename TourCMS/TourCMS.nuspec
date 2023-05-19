@@ -1,17 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>
-    <projectUrl>http://github.com/TourCMS/tourcms-dotnet</projectUrl>
-    <iconUrl>http://www.tourcms.com/images/nuget.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <iconUrl>http://www.tourcms.com/images/nuget.png</iconUrl>
+    <projectUrl>https://github.com/TourCMS/tourcms-dotnet</projectUrl>
     <description>$description$</description>
-    <releaseNotes>Initial NuGet release.</releaseNotes>
-    <copyright>Copyright 2015</copyright>
-    <tags>tourcms api wrapper</tags>
+    <releaseNotes>Added ability to set custom request user agent. Added default TCMS c# wrapper user agent.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>tourcms api wrapper V1.0</tags>
   </metadata>
 </package>
