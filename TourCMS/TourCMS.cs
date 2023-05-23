@@ -35,6 +35,11 @@ namespace TourCMS.Utils
         /// </summary>
         protected string _userAgent = "Tourcms .NET Wrapper v1.0";
 
+        /// <summary>
+        /// Prepend called (maid_channel) to user agent.
+        /// </summary>
+        protected bool _prependCallerToUserAgent = true;
+
         // Constructor
 
         /// <summary>
@@ -72,11 +77,13 @@ namespace TourCMS.Utils
         }
 
         /// <summary>
-        /// Allow to modify the _userAgent param. This would be the request user agent.
+        /// Allow to modify the _userAgent param. This would be the request user agent. In case of set prepend to true, we will add the (maid_channel) info to the request U-A.
         /// </summary>
         /// <param name="user_agent"></param>
-        public void setUserAgent(string user_agent)
+        /// <param name="prepend"></param>
+        public void setUserAgent(string user_agent, bool prepend = true)
         {
+            this._prependCallerToUserAgent = prepend;
             this._userAgent = user_agent;
         }
 
@@ -121,7 +128,11 @@ namespace TourCMS.Utils
             myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
             if (!string.IsNullOrEmpty(this.getUserAgent()))
             {
-                myRequest.UserAgent = this.getUserAgent() + " ("+this._marketplaceId+"_"+channelId+")";
+                myRequest.UserAgent = this.getUserAgent();
+                if (this._prependCallerToUserAgent)
+                {
+                    myRequest.UserAgent = this.getUserAgent() + " (" + this._marketplaceId + "_" + channelId + ")";
+                }
             }
 
             if (postData != null)
