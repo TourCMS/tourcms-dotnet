@@ -29,7 +29,7 @@ namespace TourCMS.Utils
         /// API Private Key, set via the constructor
         /// </summary>
         protected string _privateKey = "";
-        
+
         /// <summary>
         /// Requests user agent
         /// </summary>
@@ -108,7 +108,7 @@ namespace TourCMS.Utils
         /// </summary>
         public XmlDocument Request(string path, int channelId, string verb, XmlDocument postData)
         {
-            string url = _baseUrl + path;                
+            string url = _baseUrl + path;
             DateTime outboundTime = DateTime.Now.ToUniversalTime();
             string signature = GenerateSignature(path, verb, channelId, outboundTime);
             XmlDocument doc = new XmlDocument();
@@ -121,7 +121,7 @@ namespace TourCMS.Utils
             myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
             if (!string.IsNullOrEmpty(this.getUserAgent()))
             {
-                myRequest.UserAgent = this.getUserAgent();
+                myRequest.UserAgent = this.getUserAgent() + " ("+this._marketplaceId+"_"+channelId+")";
             }
 
             if (postData != null)
@@ -142,7 +142,7 @@ namespace TourCMS.Utils
                 doc.LoadXml(responseText);
             }
             catch (WebException e)
-            {                
+            {
                 StreamReader responseStream = new StreamReader(e.Response.GetResponseStream(), true);
                 string responseText = responseStream.ReadToEnd();
                 doc.LoadXml(responseText);
