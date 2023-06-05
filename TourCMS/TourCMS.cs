@@ -12,7 +12,6 @@ namespace TourCMS.Utils
     /// Wrapper class for the XML REST based TourCMS Marketplace API
     /// </summary>
     public class marketplaceWrapper
-
     {
         // Properties
 
@@ -30,6 +29,16 @@ namespace TourCMS.Utils
         /// API Private Key, set via the constructor
         /// </summary>
         protected string _privateKey = "";
+
+        /// <summary>
+        /// Requests user agent
+        /// </summary>
+        protected string _userAgent = "Tourcms .NET Wrapper v1.0";
+
+        /// <summary>
+        /// Prepend called (maid_channel) to user agent.
+        /// </summary>
+        protected bool _prependCallerToUserAgent = true;
 
         // Constructor
 
@@ -57,6 +66,25 @@ namespace TourCMS.Utils
         public void setBaseUrl(string new_url)
         {
             this._baseUrl = new_url;
+        }
+
+        /// <summary>
+        /// Return user agent
+        /// </summary>
+        public string getUserAgent()
+        {
+            return this._userAgent;
+        }
+
+        /// <summary>
+        /// Allow to modify the _userAgent param. This would be the request user agent. In case of set prepend to true, we will add the (maid_channel) info to the request U-A.
+        /// </summary>
+        /// <param name="user_agent"></param>
+        /// <param name="prepend"></param>
+        public void setUserAgent(string user_agent, bool prepend = true)
+        {
+            this._prependCallerToUserAgent = prepend;
+            this._userAgent = user_agent;
         }
 
         // API request
@@ -98,6 +126,14 @@ namespace TourCMS.Utils
             myRequest.ContentType = "text/xml;charset=\"utf-8\"";
             myRequest.Headers.Add("Authorization", "TourCMS " + channelId + ":" + _marketplaceId + ":" + signature);
             myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
+            if (!string.IsNullOrEmpty(this.getUserAgent()))
+            {
+                myRequest.UserAgent = this.getUserAgent();
+                if (this._prependCallerToUserAgent)
+                {
+                    myRequest.UserAgent = this.getUserAgent() + " (" + this._marketplaceId + "_" + channelId + ")";
+                }
+            }
 
             if (postData != null)
             {

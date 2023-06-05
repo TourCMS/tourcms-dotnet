@@ -10,8 +10,8 @@
     <iconUrl>https://www.tourcms.com/images/nuget.png</iconUrl>
     <projectUrl>https://github.com/TourCMS/tourcms-dotnet</projectUrl>
     <description>$description$</description>
-    <releaseNotes>Added ability to set custom request user agent. Added default TCMS c# wrapper user agent.</releaseNotes>
+    <releaseNotes>Notes with the chanes</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>tourcms api wrapper V-1.0</tags>
+    <tags>tourcms api wrapper V-X.X</tags>
   </metadata>
 </package>
