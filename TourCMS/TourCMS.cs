@@ -683,6 +683,35 @@ namespace TourCMS.Utils
                 return Request("/c/bookings/search.xml?" + queryString, channelId);
         }
 
+        // List bookings
+
+        /// <summary>
+        /// Get a list of all bookings, optionally filter by channel / querystring
+        /// </summary>
+        public XmlDocument ListBookings()
+        {
+            return ListBookings("", 0);
+        }
+
+        /// <summary>
+        /// Get a list of all bookings, optionally filter by channel / querystring
+        /// </summary>
+        public XmlDocument ListBookings(string queryString)
+        {
+            return ListBookings(queryString, 0);
+        }
+
+        /// <summary>
+        /// Get a list of all bookings, optionally filter by channel / querystring
+        /// </summary>
+        public XmlDocument ListBookings(string queryString, int channelId)
+        {
+            if (channelId == 0)
+                return Request("/p/bookings/list.xml?" + queryString);
+            else
+                return Request("/c/bookings/list.xml?" + queryString, channelId);
+        }
+
         // Show booking
 
         /// <summary>
