@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Web;
 using System.Text;
 using System.IO;
 using System.Net;
@@ -916,7 +915,7 @@ namespace TourCMS.Utils
         /// </summary>
         protected DateTime StampToDateTime(int value)
         {
-            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return dateTime.AddSeconds(value);
         }
     }
