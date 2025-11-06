@@ -868,7 +868,7 @@ namespace TourCMS.Utils
             var hmacsha256 = new HMACSHA256(Encoding.UTF8.GetBytes(_privateKey));
             hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(stringToSign));
             signature = Convert.ToBase64String(hmacsha256.Hash);
-            signature = HttpUtility.UrlEncode(signature);
+            signature = WebUtility.UrlEncode(signature);
 
             return signature;
         }
