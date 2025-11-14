@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Web;
 using System.Xml;
 
 namespace TourCMS.Utils
@@ -32,7 +33,7 @@ namespace TourCMS.Utils
         /// <summary>
         /// Requests user agent
         /// </summary>
-        protected string _userAgent = "Tourcms .NET Wrapper v1.0";
+        protected string _userAgent = "Tourcms .NET Wrapper v1.0-custom";
 
         /// <summary>
         /// Prepend called (maid_channel) to user agent.
@@ -116,7 +117,8 @@ namespace TourCMS.Utils
         {
             string url = _baseUrl + path;
             DateTime outboundTime = DateTime.Now.ToUniversalTime();
-            string signature = GenerateSignature(path, verb, channelId, outboundTime);
+            string outboundStamp = DateTimeToStamp(outboundTime).ToString();
+            string signature = GenerateSignature(path, verb, channelId, outboundStamp);
             XmlDocument doc = new XmlDocument();
 
             // Prepare web request...
@@ -124,7 +126,7 @@ namespace TourCMS.Utils
             myRequest.Method = verb;
             myRequest.ContentType = "text/xml;charset=\"utf-8\"";
             myRequest.Headers.Add("Authorization", "TourCMS " + channelId + ":" + _marketplaceId + ":" + signature);
-            myRequest.Headers.Add("x-tourcms-date", outboundTime.ToString("r"));
+            myRequest.Headers.Add("x-tourcms-date", outboundStamp);
             if (!string.IsNullOrEmpty(this.getUserAgent()))
             {
                 myRequest.UserAgent = this.getUserAgent();
@@ -878,15 +880,22 @@ namespace TourCMS.Utils
         #endregion
 
         // End wrapper functions
-
         /// <summary>
-        /// Create an encrypted signature for a particular request, generally you won't neeed to call this directly
+        /// Create an encrypted signature for a particular request, generally you won't need to call this directly
         /// </summary>
         protected string GenerateSignature(string path, string verb, int channelId, DateTime outboundTime)
         {
+            string outboundStamp = DateTimeToStamp(outboundTime).ToString();
+            return GenerateSignature(path, verb, channelId, outboundStamp);
+        }
+     
+        /// <summary>
+        /// Create an encrypted signature for a particular request, generally you won't need to call this directly 
+        /// </summary>
+        protected string GenerateSignature(string path, string verb, int channelId, string outboundStamp)
+        {
             string stringToSign = "";
             string signature = "";
-            string outboundStamp = DateTimeToStamp(outboundTime).ToString();
 
             // Build the basic string that gets signed
             stringToSign = channelId + "/" + _marketplaceId + "/" + verb + "/" + outboundStamp + path;
@@ -896,7 +905,7 @@ namespace TourCMS.Utils
             var hmacsha256 = new HMACSHA256(Encoding.UTF8.GetBytes(_privateKey));
             hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(stringToSign));
             signature = Convert.ToBase64String(hmacsha256.Hash);
-            signature = WebUtility.UrlEncode(signature);
+            signature = Uri.EscapeDataString(signature);
 
             return signature;
         }
